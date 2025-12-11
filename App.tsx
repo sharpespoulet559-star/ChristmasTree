@@ -12,12 +12,19 @@ export const App: React.FC = () => {
   // Load configuration images
   useEffect(() => {
     const urls = PRELOADED_IMAGES.map(img => img.url);
-    setUserImages(prev => [...prev, ...urls]);
+    setUserImages(prev => {
+        // Initial load deduplication
+        return Array.from(new Set([...prev, ...urls]));
+    });
   }, []);
 
-  // Update to handle batch upload array
+  // Update to handle batch upload array with DEDUPLICATION
   const handleUploadImages = (urls: string[]) => {
-    setUserImages(prev => [...prev, ...urls]);
+    setUserImages(prev => {
+        // Create a new unique list combining existing images and new uploads
+        const uniqueImages = Array.from(new Set([...prev, ...urls]));
+        return uniqueImages;
+    });
   };
 
   const handleSelectPhoto = (data: ParticleData) => {

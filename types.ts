@@ -29,11 +29,17 @@ export interface ImageConfig {
   id: string;
 }
 
-// Global JSX Intrinsic Elements Augmentation to fix missing HTML tags
+// Fix: Augment JSX.IntrinsicElements to include standard HTML elements reported as missing
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      [elemName: string]: any;
+      div: any;
+      span: any;
+      button: any;
+      input: any;
+      img: any;
+      svg: any;
+      path: any;
     }
   }
 }
